@@ -1,6 +1,6 @@
 import pygame
 from player import Player
-from block import SquareBlock
+from block import DirtBlock
 
 # ------------------ Constants ------------------ #
 SCREEN_WIDTH = 1366
@@ -17,12 +17,14 @@ dt = 0
 
 # ------------------ Game Objects ------------------ #
 # Create player instance
-player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
+player = Player(200,200)
 
 # Create block instances
 squares = pygame.sprite.Group()
-squares.add(SquareBlock(500, 500))
-squares.add(SquareBlock(900, 500))
+squares.add(DirtBlock(500, 500))
+squares.add(DirtBlock(1000, 500))
+# Collision detection
+obstacles = [block.rect for block in squares]
 
 # ------------------ Game Loop ------------------ #
 while running:
@@ -33,16 +35,17 @@ while running:
 
     # Handle input
     keys = pygame.key.get_pressed()
-    player.handle_input(keys, dt)
+    # detects collision
+    player.handle_input(keys, dt, obstacles)
 
     # Update game objects
     squares.update()
 
     # Draw everything
     screen.fill("blue")
-    player.draw(screen)
-    squares.draw(screen)
-
+    player.draw(screen) # Spawn player
+    squares.draw(screen) # Spawn blocks
+    
     # Update the display
     pygame.display.flip()
 
@@ -52,8 +55,8 @@ while running:
 pygame.quit()
 
 # To do for now
-# Make a movable player 
-# Add sprite images to the block
+# Make a movable player ✅
+# Add sprite images to the block ✅
 # Add collision
 # Add camera movement
 # Make the block 3D
