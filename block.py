@@ -5,8 +5,6 @@ class SquareBlock(pygame.sprite.Sprite):
     def __init__(self, x, y):
         # initialize the sprite
         pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.Surface((50, 50))
-        self.rect = self.image.get_rect()
         sprite_sheet_image = pygame.image.load('assets/1.21.4/blocks/dirt.png').convert_alpha()
         self.image = sprite_sheet_image
         self.rect = self.image.get_rect()  
